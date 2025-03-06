@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D1C28732-4460-40CB-AF42-A142C0B7E76A}|ESchoolGame.vcxproj|C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\main.cpp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D1C28732-4460-40CB-AF42-A142C0B7E76A}|ESchoolGame.vcxproj|solutionrelative:main.cpp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D1C28732-4460-40CB-AF42-A142C0B7E76A}|ESchoolGame.vcxproj|C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D1C28732-4460-40CB-AF42-A142C0B7E76A}|ESchoolGame.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,12 +47,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "main.cpp.cpp",
-              "DocumentMoniker": "C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\main.cpp.cpp",
-              "RelativeDocumentMoniker": "main.cpp.cpp",
-              "ToolTip": "C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\main.cpp.cpp",
-              "RelativeToolTip": "main.cpp.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "C:\\Users\\AVGeo\\.vscode\\sprint-eschool-compilex\\gameFiles\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-06T21:45:37.994Z",
               "EditorCaption": ""
