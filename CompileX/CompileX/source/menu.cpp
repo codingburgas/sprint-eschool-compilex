@@ -1,88 +1,122 @@
 #include "../header/menu.h"
 #include "../header/main.h"
-
+#include "../header/jstest.h"  // Include the JavaScript test header
+#include "raylib.h"
+#include <stdio.h>  // Include for printf
 
 using namespace std;
 
-// ????????? ?? ?????
-struct Button {
-    Rectangle bounds;
-    string text;
-};
-
-// ???????? ??????????
-const int screenWidth = 800;
-const int screenHeight = 600;
-vector<Button> menuButtons;
-
-void InitMenu() {
-    menuButtons.push_back({ {300, 200, 200, 50}, "1. ???????????" });
-    menuButtons.push_back({ {300, 270, 200, 50}, "2. ??? ?? ?????" });
-    menuButtons.push_back({ {300, 340, 200, 50}, "3. ??????????" });
-    menuButtons.push_back({ {300, 410, 200, 50}, "4. ?????" });
-}
-
-void HandleMenuClick(int buttonIndex) {
-    switch (buttonIndex) {
-    case 0:
-        cout << "?? ???????????..." << endl;
-        break;
-    case 1:
-        cout << "?? ??? ?? ?????..." << endl;
-        break;
-    case 2:
-        cout << "?? ??????????..." << endl;
-        break;
-    case 3:
-        CloseWindow();
-        break;
-    }
-}
-
-void UpdateMenu() {
-    Vector2 mousePoint = GetMousePosition();
-
-    for (int i = 0; i < menuButtons.size(); i++) {
-        if (CheckCollisionPointRec(mousePoint, menuButtons[i].bounds) &&
-            IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            HandleMenuClick(i);
-        }
-    }
-}
-
-void DrawButton(Button button, bool hovered) {
-    DrawRectangleRec(button.bounds, hovered ? GRAY : LIGHTGRAY);
-    DrawRectangleLinesEx(button.bounds, 2, DARKGRAY);
-    DrawText(button.text.c_str(), button.bounds.x + 20, button.bounds.y + 15, 20, BLACK);
-}
-
-void DrawMenu() {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
-
-    DrawText("\u0414\u043e\u0431\u0440\u0435 \u0434\u043e\u0448\u043b\u0438 \u0432 E-School!", 220, 100, 30, DARKBLUE);
-
-    Vector2 mousePoint = GetMousePosition();
-    for (auto& button : menuButtons) {
-        bool hovered = CheckCollisionPointRec(mousePoint, button.bounds);
-        DrawButton(button, hovered);
-    }
-
-    EndDrawing();
-}
+bool isStartClicked = false;  // Declare globally to track the menu state
+bool isJSQuizActive = false;  // Track if the JavaScript test screen is active
 
 void Menu() {
-    InitWindow(screenWidth, screenHeight, "E-School - \u0415\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435");
+    int width = 800;
+    int height = 600;
+    const char* text = "Welcome to the CompileX Test System";
+
+    InitWindow(width, height, text);
     SetTargetFPS(60);
 
-    InitMenu();
+    Rectangle startButton = { 300, 200, 150, 40 };
+    Rectangle howToPlayButton = { 300, 270, 150, 40 };
+    Rectangle aboutUsButton = { 300, 340, 150, 40 };
+    Rectangle exitButton = { 300, 410, 150, 40 };
 
     while (!WindowShouldClose()) {
-        UpdateMenu();
-        DrawMenu();
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+
+        if (!isStartClicked) {
+            int textWidth = MeasureText(text, 20);
+            int textHeight = 20;
+            int x = (GetScreenWidth() - textWidth) / 2;
+            int y = (GetScreenHeight() - textHeight) / 2 - 150;
+            DrawText(text, x, y, 20, BLACK);
+
+            DrawButton(startButton, "Start");
+            DrawButton(howToPlayButton, "How to Play");
+            DrawButton(aboutUsButton, "About Us");
+            DrawButton(exitButton, "Exit");
+
+            if (CheckCollisionPointRec(GetMousePosition(), exitButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                CloseWindow();
+            }
+
+            if (CheckCollisionPointRec(GetMousePosition(), startButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                isStartClicked = true;
+            }
+        }
+        else if (isJSQuizActive) {
+            DrawJSQuestionScreen();  // Call the JavaScript question screen when active
+        }
+        else {
+            DrawTestSelectionMenu();  // Draw the test selection menu
+        }
+
+        EndDrawing();
     }
 
     CloseWindow();
 }
 
+void DrawButton(Rectangle button, const char* text) {
+    DrawRectangleRec(button, LIGHTGRAY);
 
+    if (CheckCollisionPointRec(GetMousePosition(), button)) {
+        DrawRectangleRec(button, GRAY);
+
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            printf("%s button clicked!\n", text);  // Log button click
+        }
+    }
+
+    Vector2 textSize = MeasureTextEx(GetFontDefault(), text, 20, 1.0f);
+    DrawText(text, button.x + (button.width - textSize.x) / 2, button.y + (button.height - textSize.y) / 2, 20, BLACK);
+}
+
+void DrawTestSelectionMenu() {
+    Rectangle jsButton = { 200, 150, 120, 120 };
+    Rectangle cppButton = { 330, 200, 120, 120 };
+    Rectangle htmlCssButton = { 460, 150, 120, 120 };
+    Rectangle backButton = { 10, 10, 100, 40 };
+
+    DrawButtonPlanet(jsButton, "JS");
+    DrawButtonPlanet(cppButton, "C++");
+    DrawButtonPlanet(htmlCssButton, "HTML & CSS");
+    DrawButton(backButton, "Back");
+
+    if (CheckCollisionPointRec(GetMousePosition(), jsButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        printf("JavaScript test selected!\n");
+        isJSQuizActive = true;  // Set the flag to true when JS button is clicked
+        InitializeJSQuiz();  // Initialize the JS quiz
+    }
+    if (CheckCollisionPointRec(GetMousePosition(), cppButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        printf("C++ test selected!\n");
+    }
+    if (CheckCollisionPointRec(GetMousePosition(), htmlCssButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        printf("HTML & CSS test selected!\n");
+    }
+    if (CheckCollisionPointRec(GetMousePosition(), backButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        returnToPreviousMenu();  // Go back to the previous menu
+    }
+}
+
+void DrawButtonPlanet(Rectangle button, const char* text) {
+    DrawCircle(button.x + button.width / 2, button.y + button.height / 2, button.width / 2, DARKGRAY);
+
+    if (CheckCollisionPointRec(GetMousePosition(), button)) {
+        DrawCircle(button.x + button.width / 2, button.y + button.height / 2, button.width / 2, GRAY);
+
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            printf("%s test button clicked!\n", text);  // Log test button click
+        }
+    }
+
+    Vector2 textSize = MeasureTextEx(GetFontDefault(), text, 20, 1.0f);
+    DrawText(text, button.x + (button.width - textSize.x) / 2 + 10, button.y + (button.height - textSize.y) / 2 + 5, 20, WHITE);
+}
+
+void returnToPreviousMenu() {
+    isStartClicked = false;
+    isJSQuizActive = false;  // Reset JS quiz flag to go back to the test selection menu
+}

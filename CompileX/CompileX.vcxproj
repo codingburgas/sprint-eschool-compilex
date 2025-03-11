@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompileX\header\jsTest.h" />
     <ClInclude Include="CompileX\header\main.h" />
     <ClInclude Include="CompileX\header\menu.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CompileX\source\jsTest.cpp" />
     <ClCompile Include="CompileX\source\main.cpp" />
     <ClCompile Include="CompileX\source\menu.cpp" />
   </ItemGroup>
