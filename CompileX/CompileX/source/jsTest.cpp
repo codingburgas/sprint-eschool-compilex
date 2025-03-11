@@ -27,6 +27,10 @@ void DrawJSQuestionScreen() {
     Rectangle answerButton4 = { 100, 350, 30, 30 };  // Smaller checkboxes
     Rectangle backButton = { 10, 10, 100, 40 };  // Position for the back button
 
+    if (CheckCollisionPointRec(GetMousePosition(), backButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        returnToPreviousMenu();  // Go back to the previous menu
+    }
+
     // Declare the offset for positioning the answer text
     int textOffsetX = 40;  // Offset to move text to the right of the buttons
     int textOffsetY = 200;  // Start position for the first answer text
@@ -69,6 +73,9 @@ void DrawJSQuestionScreen() {
         isAnswerCorrect = false;  // Incorrect answer
         printf("Answer 4 clicked! Incorrect answer.\n");
     }
+    if (CheckCollisionPointRec(GetMousePosition(), backButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        returnToPreviousMenu();  // Go back to the previous menu
+    }
 
     // Display feedback message
     if (isQuestionAnswered) {
@@ -86,3 +93,4 @@ void DrawJSQuestionScreen() {
         printf("Going back to the main menu\n");
     }
 }
+

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompileX\header\global.h" />
     <ClInclude Include="CompileX\header\jsTest.h" />
     <ClInclude Include="CompileX\header\main.h" />
     <ClInclude Include="CompileX\header\menu.h" />

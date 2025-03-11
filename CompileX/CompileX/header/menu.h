@@ -6,5 +6,5 @@ void Menu();  // Main menu function
 void DrawButton(Rectangle button, const char* text);  // Draw individual buttons
 void DrawTestSelectionMenu();  // Draw test selection screen
 void DrawButtonPlanet(Rectangle button, const char* text);  // Draw planet-shaped buttons
-void returnToPreviousMenu();  // Return to the previous menu
+void returnToPreviousMenu();
 
