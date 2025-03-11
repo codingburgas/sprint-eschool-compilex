@@ -82,7 +82,7 @@ void DrawTestSelectionMenu() {
 
     DrawButtonPlanet(jsButton, "JS");
     DrawButtonPlanet(cppButton, "C++");
-    DrawButtonPlanet(htmlCssButton, "HTML & CSS");
+    DrawButtonPlanet(htmlCssButton, "HTML");
     DrawButton(backButton, "Back");
 
     if (CheckCollisionPointRec(GetMousePosition(), jsButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
