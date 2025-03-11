@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include <stdio.h>  // Include for printf
 #include "../header/menu.h"
+#include "../header/planet.h"  // Include planet.h to recognize DrawTestSelectionMenu and DrawButtonPlanet
+
 
 using namespace std;
 

@@ -11,15 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CompileX\header\global.h" />
     <ClInclude Include="CompileX\header\jsTest.h" />
     <ClInclude Include="CompileX\header\main.h" />
     <ClInclude Include="CompileX\header\menu.h" />
+    <ClInclude Include="CompileX\header\planet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompileX\source\jsTest.cpp" />
     <ClCompile Include="CompileX\source\main.cpp" />
     <ClCompile Include="CompileX\source\menu.cpp" />
+    <ClCompile Include="CompileX\source\planet.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{26CAD6B7-1297-31C3-3BB0-1F6B27DC6651}</ProjectGuid>
