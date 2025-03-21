@@ -1,14 +1,16 @@
-#include "../header/planet.h"  // Include the header where DrawTestSelectionMenu and DrawButtonPlanet are declared
 #include "../header/menu.h"
+#include "../header/planet.h"
 #include "../header/main.h"
-#include "../header/jstest.h"  // Include the JavaScript test header
+#include "../header/jstest.h"
+#include "../header/instructions.h"  // Include the instructions header to call the DrawInstructionsScreen function
 #include "raylib.h"
-#include <stdio.h>  // Include for printf
+#include <stdio.h>  // For logging button clicks
 
 using namespace std;
 
-bool isStartClicked = false;  // Declare globally to track the menu state
-bool isJSQuizActive = false;  // Track if the JavaScript test screen is active
+bool isStartClicked = false;
+bool isJSQuizActive = false;
+bool isHowToPlayActive = false;  // Flag to track if the instructions screen is active
 
 void Menu() {
     int width = 800;
@@ -27,7 +29,8 @@ void Menu() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        if (!isStartClicked) {
+        if (!isStartClicked && !isHowToPlayActive) {
+            // Main menu screen
             int textWidth = MeasureText(text, 20);
             int textHeight = 20;
             int x = (GetScreenWidth() - textWidth) / 2;
@@ -46,12 +49,21 @@ void Menu() {
             if (CheckCollisionPointRec(GetMousePosition(), startButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 isStartClicked = true;
             }
+
+            if (CheckCollisionPointRec(GetMousePosition(), howToPlayButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                // Switch to instructions screen when clicked
+                isHowToPlayActive = true;
+            }
+        }
+        else if (isHowToPlayActive) {
+            // Instructions screen
+            DrawInstructionsScreen();  // This will now call the function from instructions.cpp
         }
         else if (isJSQuizActive) {
-            DrawJSQuestionScreen();  // Call the JavaScript question screen when active
+            DrawJSQuestionScreen();
         }
         else {
-            DrawTestSelectionMenu();  // Draw the test selection menu
+            DrawTestSelectionMenu();
         }
 
         EndDrawing();
@@ -60,6 +72,7 @@ void Menu() {
     CloseWindow();
 }
 
+// Function to draw a button
 void DrawButton(Rectangle button, const char* text) {
     DrawRectangleRec(button, LIGHTGRAY);
 
@@ -77,7 +90,6 @@ void DrawButton(Rectangle button, const char* text) {
 
 void returnToPreviousMenu() {
     isStartClicked = false;
-    isJSQuizActive = false;  // Reset JS quiz flag to go back to the test selection menu
+    isJSQuizActive = false;
+    isHowToPlayActive = false;  // Reset flag to return to the main menu
 }
-
-
