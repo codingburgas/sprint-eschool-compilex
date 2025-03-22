@@ -4,18 +4,17 @@
 #include "../header/menu.h"
 #include "../header/jsTest.h"
 
-
-
 void DrawTestSelectionMenu() {
     Rectangle jsButton = { 200, 150, 120, 120 };
     Rectangle cppButton = { 330, 200, 120, 120 };
     Rectangle htmlCssButton = { 460, 150, 120, 120 };
     Rectangle backButton = { 10, 10, 100, 40 };
 
-    DrawButtonPlanet(jsButton, "JS");
-    DrawButtonPlanet(cppButton, "C++");
-    DrawButtonPlanet(htmlCssButton, "HTML");
-    DrawButton(backButton, "Back");
+    // Update the calls to DrawButton to include the isActive argument (set to false)
+    DrawButton(jsButton, "JS", false);
+    DrawButton(cppButton, "C++", false);
+    DrawButton(htmlCssButton, "HTML", false);
+    DrawButton(backButton, "Back", false);
 
     if (CheckCollisionPointRec(GetMousePosition(), jsButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         printf("JavaScript test selected!\n");

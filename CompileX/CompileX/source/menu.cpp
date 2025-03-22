@@ -2,7 +2,6 @@
 #include "../header/planet.h"
 #include "../header/main.h"
 #include "../header/jstest.h"
-#include "../header/instructions.h"  // Include the instructions header to call the DrawInstructionsScreen function
 #include "raylib.h"
 #include <stdio.h>  // For logging button clicks
 
@@ -11,6 +10,7 @@ using namespace std;
 bool isStartClicked = false;
 bool isJSQuizActive = false;
 bool isHowToPlayActive = false;  // Flag to track if the instructions screen is active
+bool isAboutUsActive = false;    // Flag to track if the About Us screen is active
 
 void Menu() {
     int width = 800;
@@ -29,7 +29,7 @@ void Menu() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        if (!isStartClicked && !isHowToPlayActive) {
+        if (!isStartClicked && !isHowToPlayActive && !isAboutUsActive) {
             // Main menu screen
             int textWidth = MeasureText(text, 20);
             int textHeight = 20;
@@ -37,11 +37,13 @@ void Menu() {
             int y = (GetScreenHeight() - textHeight) / 2 - 150;
             DrawText(text, x, y, 20, BLACK);
 
-            DrawButton(startButton, "Start");
-            DrawButton(howToPlayButton, "How to Play");
-            DrawButton(aboutUsButton, "About Us");
-            DrawButton(exitButton, "Exit");
+            // Draw the buttons
+            DrawButton(startButton, "Start", false);
+            DrawButton(howToPlayButton, "How to Play", isHowToPlayActive);
+            DrawButton(aboutUsButton, "About Us", isAboutUsActive);
+            DrawButton(exitButton, "Exit", false);
 
+            // Button actions
             if (CheckCollisionPointRec(GetMousePosition(), exitButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 CloseWindow();
             }
@@ -51,13 +53,38 @@ void Menu() {
             }
 
             if (CheckCollisionPointRec(GetMousePosition(), howToPlayButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-                // Switch to instructions screen when clicked
+                // Switch to "How to Play" screen
                 isHowToPlayActive = true;
+            }
+
+            if (CheckCollisionPointRec(GetMousePosition(), aboutUsButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                // Switch to "About Us" screen
+                isAboutUsActive = true;
             }
         }
         else if (isHowToPlayActive) {
-            // Instructions screen
-            DrawInstructionsScreen();  // This will now call the function from instructions.cpp
+            // Instructions screen (How to Play)
+            DrawText("How to Play:", 50, 50, 30, BLACK);
+            DrawText("1. Use arrow keys to move.", 50, 100, 20, BLACK);
+            DrawText("2. Avoid obstacles and collect points.", 50, 130, 20, BLACK);
+            DrawText("3. Press 'Enter' to start the game.", 50, 160, 20, BLACK);
+            DrawText("Press 'Escape' to go back.", 50, 200, 20, BLACK);
+
+            if (IsKeyPressed(KEY_ESCAPE)) {
+                isHowToPlayActive = false;  // Go back to main menu
+            }
+        }
+        else if (isAboutUsActive) {
+            // About Us screen content
+            DrawText("About Us", 300, 150, 30, BLACK);
+            DrawText("This game is developed by CompileX Studios.", 50, 200, 20, BLACK);
+            DrawText("We specialize in creating fun and educational games.", 50, 230, 20, BLACK);
+            DrawText("Thank you for playing our game!", 50, 260, 20, BLACK);
+            DrawText("Press 'Escape' to go back.", 50, 300, 20, BLACK);
+
+            if (IsKeyPressed(KEY_ESCAPE)) {
+                isAboutUsActive = false;  // Go back to main menu
+            }
         }
         else if (isJSQuizActive) {
             DrawJSQuestionScreen();
@@ -72,9 +99,11 @@ void Menu() {
     CloseWindow();
 }
 
-// Function to draw a button
-void DrawButton(Rectangle button, const char* text) {
-    DrawRectangleRec(button, LIGHTGRAY);
+// Modified function to draw a button with an additional 'isActive' argument
+void DrawButton(Rectangle button, const char* text, bool isActive) {
+    Color buttonColor = isActive ? DARKGRAY : LIGHTGRAY;  // Highlight button when active
+
+    DrawRectangleRec(button, buttonColor);
 
     if (CheckCollisionPointRec(GetMousePosition(), button)) {
         DrawRectangleRec(button, GRAY);
@@ -92,4 +121,5 @@ void returnToPreviousMenu() {
     isStartClicked = false;
     isJSQuizActive = false;
     isHowToPlayActive = false;  // Reset flag to return to the main menu
+    isAboutUsActive = false;    // Reset flag to return to the main menu
 }

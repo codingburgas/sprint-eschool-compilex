@@ -4,9 +4,6 @@
 #include "../header/menu.h"
 #include "../header/planet.h"  // Include planet.h to recognize DrawTestSelectionMenu and DrawButtonPlanet
 
-
-using namespace std;
-
 bool isQuestionAnswered = false;
 bool isAnswerCorrect = false;  // Track if the selected answer is correct
 
@@ -41,10 +38,10 @@ void DrawJSQuestionScreen() {
     DrawText(question, 100, 150, 20, BLACK);
 
     // Draw the answer buttons without displaying the answer text
-    DrawButtonPlanet(answerButton1, "");
-    DrawButtonPlanet(answerButton2, "");
-    DrawButtonPlanet(answerButton3, "");
-    DrawButtonPlanet(answerButton4, "");
+    DrawButton(answerButton1, "", false); // Pass the false for isActive
+    DrawButton(answerButton2, "", false);
+    DrawButton(answerButton3, "", false);
+    DrawButton(answerButton4, "", false);
 
     // Draw the answers to the right of the buttons
     // Display the answer texts in black, adjusted to the right of the checkboxes
@@ -52,7 +49,7 @@ void DrawJSQuestionScreen() {
     DrawText(answer2, answerButton2.x + textOffsetX, textOffsetY + 50, 20, BLACK);
     DrawText(answer3, answerButton3.x + textOffsetX, textOffsetY + 100, 20, BLACK);
     DrawText(answer4, answerButton4.x + textOffsetX, textOffsetY + 150, 20, BLACK);
-    DrawButton(backButton, "Back");
+    DrawButton(backButton, "Back", false); // Add false for isActive
 
     // Handle answer clicks
     if (CheckCollisionPointRec(GetMousePosition(), answerButton1) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
@@ -75,9 +72,6 @@ void DrawJSQuestionScreen() {
         isAnswerCorrect = false;  // Incorrect answer
         printf("Answer 4 clicked! Incorrect answer.\n");
     }
-    if (CheckCollisionPointRec(GetMousePosition(), backButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        returnToPreviousMenu();  // Go back to the previous menu
-    }
 
     // Display feedback message
     if (isQuestionAnswered) {
@@ -95,4 +89,3 @@ void DrawJSQuestionScreen() {
         printf("Going back to the main menu\n");
     }
 }
-
