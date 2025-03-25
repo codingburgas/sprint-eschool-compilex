@@ -1,4 +1,4 @@
-# Tech-Titans-
+# CompileX
 ## Our Contributors ✨
 <ul>
   <li>Scrum Trainer - Тодор Стамболиев - 9в клас</li>
@@ -13,8 +13,8 @@
 - [Languages](#languages)
   
 ## Documentation <a name="docs"></a>
-[Documentation](https://github.com/TStamboliev23/Tech-Titans-/blob/main/Documents/Tech-Titans.docx](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.docx)) <br>
-[Presentation](https://github.com/TStamboliev23/Tech-Titans-/blob/main/Documents/Tech-Titans.pptx](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.pptx))
+[Documentation](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.docx)) <br>
+[Presentation](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.pptx))
 
 ## Tools <a name="technologies"></a>
 <p align="left">
