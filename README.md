@@ -13,8 +13,8 @@
 - [Languages](#languages)
   
 ## Documentation <a name="docs"></a>
-[Documentation](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.docx)) <br>
-[Presentation](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.pptx))
+[Documentation](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.docx) <br>
+[Presentation](https://github.com/codingburgas/sprint-eschool-compilex/blob/main/Documentation/CompileX.pptx)
 
 ## Tools <a name="technologies"></a>
 <p align="left">
