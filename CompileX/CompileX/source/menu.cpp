@@ -18,7 +18,10 @@ void Menu() {
     const char* text = "Welcome to the CompileX Test System";
 
     InitWindow(width, height, text);
+    SetExitKey(KEY_NULL); // Disable ESC from closing the window
     SetTargetFPS(60);
+
+    Texture2D background = LoadTexture("../assets/galaxy-space.png");  // Make sure the file exists!
 
     Rectangle startButton = { 300, 200, 150, 40 };
     Rectangle howToPlayButton = { 300, 270, 150, 40 };
@@ -28,6 +31,8 @@ void Menu() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
+        DrawTexture(background, 0, 0, WHITE); // Draw background 
 
         if (!isStartClicked && !isHowToPlayActive && !isAboutUsActive) {
             // Main menu screen
@@ -53,12 +58,10 @@ void Menu() {
             }
 
             if (CheckCollisionPointRec(GetMousePosition(), howToPlayButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-                // Switch to "How to Play" screen
                 isHowToPlayActive = true;
             }
 
             if (CheckCollisionPointRec(GetMousePosition(), aboutUsButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-                // Switch to "About Us" screen
                 isAboutUsActive = true;
             }
         }
@@ -71,7 +74,7 @@ void Menu() {
             DrawText("Press 'Escape' to go back.", 50, 200, 20, BLACK);
 
             if (IsKeyPressed(KEY_ESCAPE)) {
-                isHowToPlayActive = false;  // Go back to main menu
+                returnToPreviousMenu();  // Go back to main menu
             }
         }
         else if (isAboutUsActive) {
@@ -83,7 +86,7 @@ void Menu() {
             DrawText("Press 'Escape' to go back.", 50, 300, 20, BLACK);
 
             if (IsKeyPressed(KEY_ESCAPE)) {
-                isAboutUsActive = false;  // Go back to main menu
+                returnToPreviousMenu();  // Go back to main menu
             }
         }
         else if (isJSQuizActive) {
@@ -99,7 +102,7 @@ void Menu() {
     CloseWindow();
 }
 
-// Modified function to draw a button with an additional 'isActive' argument
+// Function to draw a button with an additional 'isActive' argument
 void DrawButton(Rectangle button, const char* text, bool isActive) {
     Color buttonColor = isActive ? DARKGRAY : LIGHTGRAY;  // Highlight button when active
 
@@ -117,6 +120,7 @@ void DrawButton(Rectangle button, const char* text, bool isActive) {
     DrawText(text, button.x + (button.width - textSize.x) / 2, button.y + (button.height - textSize.y) / 2, 20, BLACK);
 }
 
+// Function to reset the menu state when returning from sub-menus
 void returnToPreviousMenu() {
     isStartClicked = false;
     isJSQuizActive = false;
