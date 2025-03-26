@@ -11,12 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompileX\header\cppTest.h" />
+    <ClInclude Include="CompileX\header\htmlTest.h" />
     <ClInclude Include="CompileX\header\jsTest.h" />
     <ClInclude Include="CompileX\header\main.h" />
     <ClInclude Include="CompileX\header\menu.h" />
     <ClInclude Include="CompileX\header\planet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CompileX\source\cppTest.cpp" />
+    <ClCompile Include="CompileX\source\htmlTest.cpp" />
     <ClCompile Include="CompileX\source\jsTest.cpp" />
     <ClCompile Include="CompileX\source\main.cpp" />
     <ClCompile Include="CompileX\source\menu.cpp" />

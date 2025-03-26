@@ -2,6 +2,8 @@
 #include "../header/planet.h"
 #include "../header/main.h"
 #include "../header/jstest.h"
+#include "../header/cppTest.h"  // Include cppTest.h
+#include "../header/htmlTest.h"  // Include htmlTest.h
 #include "raylib.h"
 #include <stdio.h>  // For logging button clicks
 
@@ -9,6 +11,8 @@ using namespace std;
 
 bool isStartClicked = false;
 bool isJSQuizActive = false;
+bool isCppQuizActive = false;  // Track if C++ quiz is active
+bool isHtmlQuizActive = false;  // Track if HTML quiz is active
 bool isHowToPlayActive = false;  // Flag to track if the instructions screen is active
 bool isAboutUsActive = false;    // Flag to track if the About Us screen is active
 
@@ -32,7 +36,7 @@ void Menu() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        DrawTexture(background, 0, 0, WHITE); // Draw background 
+        DrawTexture(background, 0, 0, WHITE); // Draw background
 
         if (!isStartClicked && !isHowToPlayActive && !isAboutUsActive) {
             // Main menu screen
@@ -92,6 +96,12 @@ void Menu() {
         else if (isJSQuizActive) {
             DrawJSQuestionScreen();
         }
+        else if (isCppQuizActive) {
+            DrawCppQuestionScreen();  // Display C++ quiz screen
+        }
+        else if (isHtmlQuizActive) {
+            DrawHtmlQuestionScreen();  // Display HTML quiz screen
+        }
         else {
             DrawTestSelectionMenu();
         }
@@ -124,6 +134,8 @@ void DrawButton(Rectangle button, const char* text, bool isActive) {
 void returnToPreviousMenu() {
     isStartClicked = false;
     isJSQuizActive = false;
+    isCppQuizActive = false;  // Reset C++ quiz state
+    isHtmlQuizActive = false;  // Reset HTML quiz state
     isHowToPlayActive = false;  // Reset flag to return to the main menu
     isAboutUsActive = false;    // Reset flag to return to the main menu
 }
