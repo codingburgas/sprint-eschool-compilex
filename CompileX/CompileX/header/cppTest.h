@@ -5,3 +5,4 @@ extern bool isCppAnswerCorrect;
 
 void InitializeCppQuiz();
 void DrawCppQuestionScreen();
+void returnToPreviousMenu();

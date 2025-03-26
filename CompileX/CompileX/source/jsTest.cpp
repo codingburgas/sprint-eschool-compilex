@@ -1,91 +1,92 @@
 #include "../header/jstest.h"
 #include "raylib.h"
-#include <stdio.h>  // Include for printf
+#include <stdio.h>
 #include "../header/menu.h"
-#include "../header/planet.h"  // Include planet.h to recognize DrawTestSelectionMenu and DrawButtonPlanet
+#include "../header/planet.h"
 
-bool isQuestionAnswered = false;
-bool isAnswerCorrect = false;  // Track if the selected answer is correct
+bool isJsQuestionAnswered = false;
+bool isJsAnswerCorrect = false;
+int currentJsQuestionIndex = 0;
+
+struct JsQuestion {
+    const char* question;
+    const char* answers[4];
+    int correctAnswerIndex;
+};
+
+JsQuestion jsQuestions[] = {
+    { "What is the output of console.log(2 + '2')?", {"4", "'22'", "undefined", "Error"}, 1 },
+    { "Which keyword is used to declare a variable in JavaScript?", {"var", "let", "const", "All of the above"}, 3 },
+    { "Which symbol is used for single-line comments in JavaScript?", {"//", "<!-- -->", "/* */", "--"}, 0 },
+    { "Which function is used to print something to the console?", {"print()", "console.print()", "log()", "console.log()"}, 3 },
+    { "Which operator is used for strict equality in JavaScript?", {"==", "===", "!=", "!=="}, 1 },
+    { "What is the result of typeof null in JavaScript?", {"'null'", "'undefined'", "'object'", "'number'"}, 2 },
+    { "Which method converts a string to an integer?", {"parseInt()", "parseFloat()", "Number()", "toInt()"}, 0 },
+    { "How do you declare a function in JavaScript?", {"function myFunc() {}", "def myFunc() {}", "func myFunc() {}", "define myFunc() {}"}, 0 },
+    { "Which keyword is used to return a value from a function?", {"return", "break", "continue", "exit"}, 0 },
+    { "Which method removes the last element from an array?", {"pop()", "shift()", "splice()", "remove()"}, 0 },
+    { "What will '5' + 3 evaluate to in JavaScript?", {"8", "'53'", "Error", "'5 + 3'"}, 1 },
+    { "What does NaN stand for in JavaScript?", {"Not a Name", "Not a Number", "Negative and Null", "None"}, 1 },
+    { "Which method adds a new element to the end of an array?", {"push()", "add()", "append()", "concat()"}, 0 },
+    { "Which function is used to execute a function after a specified time?", {"setTimeout()", "setInterval()", "delay()", "wait()"}, 0 },
+    { "How do you check if a variable is an array?", {"typeof var === 'array'", "isArray(var)", "Array.isArray(var)", "var instanceof Array"}, 2 },
+    { "Which loop is used to iterate over an object's properties?", {"for", "forEach", "for in", "for of"}, 2 },
+    { "Which event is triggered when a user clicks an HTML element?", {"onhover", "onmouseover", "onclick", "onpress"}, 2 },
+    { "What is the purpose of JSON in JavaScript?", {"Storing and transporting data", "Styling web pages", "Interacting with databases", "Creating animations"}, 0 },
+    { "Which JavaScript framework is developed by Facebook?", {"Angular", "Vue", "React", "Svelte"}, 2 }
+};
+
+const int totalJsQuestions = sizeof(jsQuestions) / sizeof(jsQuestions[0]);
 
 void InitializeJSQuiz() {
-    // Initialize any data or variables needed for the JS quiz here
-    isQuestionAnswered = false;
-    isAnswerCorrect = false;
+    isJsQuestionAnswered = false;
+    isJsAnswerCorrect = false;
+    currentJsQuestionIndex = 0;
 }
 
 void DrawJSQuestionScreen() {
-    const char* question = "What is the output of the following JavaScript code: console.log(2 + '2');";
-    const char* answer1 = "4";  // Incorrect answer
-    const char* answer2 = "'22'";  // Correct answer
-    const char* answer3 = "undefined";  // Incorrect answer
-    const char* answer4 = "Error";  // Incorrect answer
+    JsQuestion currentQuestion = jsQuestions[currentJsQuestionIndex];
 
-    Rectangle answerButton1 = { 100, 200, 30, 30 };  // Smaller checkboxes
-    Rectangle answerButton2 = { 100, 250, 30, 30 };  // Smaller checkboxes
-    Rectangle answerButton3 = { 100, 300, 30, 30 };  // Smaller checkboxes
-    Rectangle answerButton4 = { 100, 350, 30, 30 };  // Smaller checkboxes
-    Rectangle backButton = { 10, 10, 100, 40 };  // Position for the back button
+    Rectangle answerButtons[4] = {
+        {100, 200, 30, 30},
+        {100, 250, 30, 30},
+        {100, 300, 30, 30},
+        {100, 350, 30, 30}
+    };
+    Rectangle backButton = { 10, 10, 100, 40 };
+    Rectangle nextButton = { 250, 450, 100, 40 };
+    Rectangle prevButton = { 100, 450, 100, 40 };
 
     if (CheckCollisionPointRec(GetMousePosition(), backButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        returnToPreviousMenu();  // Go back to the previous menu
+        returnToPreviousMenu();
+    }
+    if (CheckCollisionPointRec(GetMousePosition(), nextButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && currentJsQuestionIndex < totalJsQuestions - 1) {
+        currentJsQuestionIndex++;
+        isJsQuestionAnswered = false;
+    }
+    if (CheckCollisionPointRec(GetMousePosition(), prevButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && currentJsQuestionIndex > 0) {
+        currentJsQuestionIndex--;
+        isJsQuestionAnswered = false;
     }
 
-    // Declare the offset for positioning the answer text
-    int textOffsetX = 40;  // Offset to move text to the right of the buttons
-    int textOffsetY = 200;  // Start position for the first answer text
+    DrawText(currentQuestion.question, 100, 150, 20, BLACK);
 
-    // Draw the question
-    DrawText(question, 100, 150, 20, BLACK);
+    for (int i = 0; i < 4; i++) {
+        DrawButton(answerButtons[i], "", false);
+        DrawText(currentQuestion.answers[i], answerButtons[i].x + 40, answerButtons[i].y, 20, BLACK);
 
-    // Draw the answer buttons without displaying the answer text
-    DrawButton(answerButton1, "", false); // Pass the false for isActive
-    DrawButton(answerButton2, "", false);
-    DrawButton(answerButton3, "", false);
-    DrawButton(answerButton4, "", false);
-
-    // Draw the answers to the right of the buttons
-    // Display the answer texts in black, adjusted to the right of the checkboxes
-    DrawText(answer1, answerButton1.x + textOffsetX, textOffsetY, 20, BLACK);
-    DrawText(answer2, answerButton2.x + textOffsetX, textOffsetY + 50, 20, BLACK);
-    DrawText(answer3, answerButton3.x + textOffsetX, textOffsetY + 100, 20, BLACK);
-    DrawText(answer4, answerButton4.x + textOffsetX, textOffsetY + 150, 20, BLACK);
-    DrawButton(backButton, "Back", false); // Add false for isActive
-
-    // Handle answer clicks
-    if (CheckCollisionPointRec(GetMousePosition(), answerButton1) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        isQuestionAnswered = true;
-        isAnswerCorrect = false;  // Incorrect answer
-        printf("Answer 1 clicked! Incorrect answer.\n");
-    }
-    if (CheckCollisionPointRec(GetMousePosition(), answerButton2) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        isQuestionAnswered = true;
-        isAnswerCorrect = true;  // Correct answer
-        printf("Answer 2 clicked! Correct answer.\n");
-    }
-    if (CheckCollisionPointRec(GetMousePosition(), answerButton3) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        isQuestionAnswered = true;
-        isAnswerCorrect = false;  // Incorrect answer
-        printf("Answer 3 clicked! Incorrect answer.\n");
-    }
-    if (CheckCollisionPointRec(GetMousePosition(), answerButton4) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        isQuestionAnswered = true;
-        isAnswerCorrect = false;  // Incorrect answer
-        printf("Answer 4 clicked! Incorrect answer.\n");
-    }
-
-    // Display feedback message
-    if (isQuestionAnswered) {
-        if (isAnswerCorrect) {
-            DrawText("Correct answer!", 100, 400, 20, GREEN);  // Correct answer message
-        }
-        else {
-            DrawText("Incorrect answer! Try again.", 100, 400, 20, RED);  // Incorrect answer message
+        if (CheckCollisionPointRec(GetMousePosition(), answerButtons[i]) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            isJsQuestionAnswered = true;
+            isJsAnswerCorrect = (i == currentQuestion.correctAnswerIndex);
+            printf("Answer %d clicked! %s answer.\n", i + 1, isJsAnswerCorrect ? "Correct" : "Incorrect");
         }
     }
 
-    // Handle back button click
-    if (CheckCollisionPointRec(GetMousePosition(), backButton) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        isQuestionAnswered = false;
-        printf("Going back to the main menu\n");
+    DrawButton(backButton, "Back", false);
+    DrawButton(nextButton, "Next", false);
+    DrawButton(prevButton, "Previous", false);
+
+    if (isJsQuestionAnswered) {
+        DrawText(isJsAnswerCorrect ? "Correct answer!" : "Incorrect answer! Try again.", 100, 400, 20, isJsAnswerCorrect ? GREEN : RED);
     }
 }
