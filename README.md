@@ -56,16 +56,23 @@
 - [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/nggeorgieva23_codingburgas_bg/EdMEcUzu8r1Miyn-V7q6FW0BN1Ka6caXReEPb8ZhVWJebQ?e=Usa9PH)
 <br>
 
-<hr>
-## 🧒 Our Team
-
-<h3><a href = "https://github.com/TPStamboliev23">Todor Stamboliev</a></h3> | Scrum Trainer  | 9th V grade |
+# 🧒 Our Team
+| <h2>Name</h2> | <h2>Role</h2> | <h2>Grade</h2> |
+| :---:   | :---: | :---: |
+| <h3><a href = "https://github.com/TPStamboliev23">Todor Stamboliev</a></h3> | Scrum Trainer  | 9th V grade |
 | <h3><a href = "https://github.com/AVApostolov23">Anastas Apostolov</a></h3> | Backend developer | 9th A grade |
 | <h3><a href = "https://github.com/AVGeorgiev23 ">Alexander Georgiev</a></h3> | Frontend developer | 9th B grade |
 | <h3><a href = "https://github.com/NGGeorgieva23 ">Nia Georgieva</a></h3> | Design | 9th B grade |
 
 
+
+
+
+
+
 <hr>
+
 <h1 align="center">
-Since you came all the way here, you can show your ❤ by giving us a ⭐!
+ Since you came all the way here, you can show your ❤ by giving us a ⭐!
 </h1>
+
