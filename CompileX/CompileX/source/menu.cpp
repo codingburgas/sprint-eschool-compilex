@@ -25,7 +25,6 @@ void Menu() {
     SetExitKey(KEY_NULL); // Disable ESC from closing the window
     SetTargetFPS(60);
 
-    Texture2D background = LoadTexture("../assets/galaxy-space.png");  // Make sure the file exists!
 
     Rectangle startButton = { 300, 200, 150, 40 };
     Rectangle howToPlayButton = { 300, 270, 150, 40 };
@@ -35,8 +34,6 @@ void Menu() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
-        DrawTexture(background, 0, 0, WHITE); // Draw background
 
         if (!isStartClicked && !isHowToPlayActive && !isAboutUsActive) {
             // Main menu screen
